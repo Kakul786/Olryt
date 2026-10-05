@@ -1,0 +1,18 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+html { scroll-behavior: smooth; }
+body { @apply bg-cream text-ink font-body antialiased; }
+:focus-visible { outline: 3px solid #F56A00; outline-offset: 3px; border-radius: 8px; }
+.h-display { @apply font-display uppercase leading-[0.95] tracking-tight; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-extrabold uppercase tracking-wide text-sm transition duration-200 hover:scale-[1.03] active:scale-95 min-h-[48px]; }
+.btn-orange { @apply bg-orange text-white hover:bg-orange-dark; }
+.btn-dark { @apply bg-brown text-cream; }
+.btn-ghost { @apply border-2 border-brown text-brown hover:bg-brown hover:text-cream; }
+.card-lift { @apply transition duration-300 hover:-translate-y-1; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { scrollbar-width: none; }
+@keyframes slideIn { from { transform: translateX(100%);} to { transform: none; } }
+@keyframes rise { from { transform: translateY(40px); opacity: 0;} to { transform: none; opacity: 1; } }
+@keyframes pop { 50% { transform: scale(1.35);} }
+.slide-in { animation: slideIn .35s cubic-bezier(.2,.8,.2,1); } .rise { animation: rise .35s ease; } .pop { animation: pop .3s; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }

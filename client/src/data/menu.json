@@ -1,0 +1,28 @@
+{
+  "_note": "SINGLE SOURCE OF TRUTH for menu. Prices (INR) and nutrition are PLACEHOLDERS - replace with real values. Also read by the backend to price orders.",
+  "categories": ["Bowls","Sandwiches","Sides","Coffee","Matcha","Smoothies","Desserts"],
+  "products": [
+    {"id":"harissa-falafel-bowl","name":"Harissa Falafel Bowl","category":"Bowls","price":349,"image":"/img/coconut-bowl.jpg","badge":"Placeholder kcal","desc":"Crispy falafel, fresh veg and a harissa kick.","ingredients":["Falafel","Seasonal veg","Harissa","Greens"],"diet":"Vegetarian","top":true},
+    {"id":"seoul-spaghetti","name":"Seoul Spaghetti","category":"Bowls","price":329,"image":"/img/seoul-spaghetti.jpg","badge":"Placeholder kcal","desc":"Spaghetti in a rich, savoury sauce with feta, crispy crumbs, cherry tomatoes and mint.","ingredients":["Spaghetti","Savoury sauce","Feta","Crispy crumbs","Cherry tomatoes","Fresh mint"],"diet":"Vegetarian","top":true},
+    {"id":"thai-satay-bowl","name":"Thai Satay Bowl","category":"Bowls","price":349,"image":"/img/coconut-bowl.jpg","badge":"Placeholder kcal","desc":"Peanutty satay, crunchy veg, big flavour.","ingredients":["Satay sauce","Veg","Greens","Sesame"],"diet":"Vegetarian","top":true},
+    {"id":"sweet-potato-fries","name":"Sweet Potato Fries","category":"Sides","price":189,"image":"/img/sweet-potato-fries.jpg","badge":"Placeholder kcal","desc":"Golden, crisp and dangerously snackable.","ingredients":["Sweet potato","Seasoning","Dip"],"diet":"Vegetarian","top":true},
+    {"id":"vietnamese-summer-rolls","name":"Vietnamese Summer Rolls","category":"Sides","price":229,"image":null,"badge":"Placeholder kcal","desc":"Fresh, light rolls with a zesty dip.","ingredients":["Rice paper","Fresh veg","Herbs","Dip"],"diet":"Vegetarian","top":true},
+    {"id":"matcha-latte","name":"Matcha Latte","category":"Matcha","price":249,"image":"/img/new-favourites.jpg","badge":"","desc":"Smooth matcha, your way. Try vanilla.","ingredients":["Matcha","Milk","Ice"],"diet":"Vegetarian","top":true},
+    {"id":"strawberry-cloud-matcha","name":"Strawberry Cloud Matcha","category":"Matcha","price":289,"image":"/img/padel-drinks.jpg","badge":"","desc":"Matcha topped with a strawberry cloud.","ingredients":["Matcha","Strawberry cloud","Ice"],"diet":"Vegetarian","top":false},
+    {"id":"vietnamese-iced-coffee","name":"Vietnamese Iced Coffee","category":"Coffee","price":229,"image":"/img/new-favourites.jpg","badge":"","desc":"Bold, sweet, creamy and properly cold.","ingredients":["Coffee","Condensed milk","Ice"],"diet":"Vegetarian","top":true},
+    {"id":"signature-sandwich","name":"Signature Sandwich","category":"Sandwiches","price":319,"image":"/img/location-sandwich.jpg","badge":"Placeholder kcal","desc":"Stacked high with fresh veg, chutney and creamy layers.","ingredients":["Toasted bread","Chutney","Fresh veg","Creamy spread"],"diet":"Vegetarian","top":true},
+    {"id":"beet-hummus-toast","name":"Beet Hummus Open Toast","category":"Sandwiches","price":279,"image":"/img/beet-toast.jpg","badge":"","desc":"Beet hummus, cucumber rolls, feta, chickpeas and micro greens.","ingredients":["Sourdough","Beet hummus","Cucumber","Feta","Chickpeas","Micro greens"],"diet":"Vegetarian","top":false},
+    {"id":"focaccia-melt","name":"Focaccia Sandwich","category":"Sandwiches","price":299,"image":"/img/focaccia-spread.jpg","badge":"","desc":"Warm focaccia, loaded and flagged.","ingredients":["Focaccia","Veg filling","Cheese"],"diet":"Vegetarian","top":false},
+    {"id":"yogurt-granola-cup","name":"Yogurt Granola Cup","category":"Desserts","price":179,"image":"/img/yogurt-cups.jpg","badge":"","desc":"Creamy yogurt, crunchy granola, fresh berries.","ingredients":["Yogurt","Granola","Berries"],"diet":"Vegetarian","top":false}
+  ],
+  "builder": {
+    "basePrice": 199,
+    "steps": [
+      {"key":"base","title":"Choose your base","multi":false,"options":[{"id":"rice","name":"Brown rice","price":0},{"id":"greens","name":"Fresh greens","price":0},{"id":"quinoa","name":"Quinoa","price":30}]},
+      {"key":"protein","title":"Choose your protein","multi":false,"options":[{"id":"falafel","name":"Falafel","price":60},{"id":"paneer","name":"Grilled paneer","price":70},{"id":"chickpea","name":"Spiced chickpeas","price":50}]},
+      {"key":"toppings","title":"Add toppings","multi":true,"options":[{"id":"cherry","name":"Cherry tomato","price":15},{"id":"cucumber","name":"Cucumber","price":10},{"id":"corn","name":"Sweet corn","price":15},{"id":"seeds","name":"Seeds","price":20}]},
+      {"key":"sauce","title":"Choose your sauce","multi":false,"options":[{"id":"harissa","name":"Harissa","price":0},{"id":"satay","name":"Thai satay","price":0},{"id":"mint","name":"Mint yogurt","price":0}]},
+      {"key":"extras","title":"Add extras","multi":true,"options":[{"id":"feta","name":"Feta","price":40},{"id":"avocado","name":"Avocado","price":60},{"id":"crumbs","name":"Crispy crumbs","price":20}]}
+    ]
+  }
+}
