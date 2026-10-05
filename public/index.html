@@ -9,7 +9,7 @@
 <script>tailwind.config={theme:{extend:{colors:{brand:{orange:'#F56A00',cream:'#FFF7EA',paper:'#FCFAF6',ink:'#171310',brown:'#2B211B',green:'#1D5B3C',beige:'#EDE2D3',yellow:'#F4C542'}},fontFamily:{display:['"Archivo Black"','Impact','sans-serif'],body:['"Plus Jakarta Sans"','system-ui','sans-serif']}}}}</script>
 <style>
 html{scroll-behavior:smooth}body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#FCFAF6;color:#171310}
-.h{font-family:'Archivo Black',Impact,sans-serif;line-height:.95;letter-spacing:-.01em;text-transform:uppercase}
+.h{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:800;line-height:1.15;letter-spacing:-.02em}h2.h:not(.no-ul){display:inline-block;background:linear-gradient(#F56A00,#F56A00) 0 100%/100% 3px no-repeat;padding-bottom:3px}html{font-size:14px}@media(min-width:768px){html{font-size:15px}}
 .no-sb{scrollbar-width:none}.no-sb::-webkit-scrollbar{display:none}
 .zoom img{transition:transform .6s cubic-bezier(.2,.7,.2,1)}.zoom:hover img{transform:scale(1.05)}
 .lift{transition:transform .25s,box-shadow .25s}.lift:hover{transform:translateY(-3px)}
@@ -31,8 +31,8 @@ const {useState,useEffect,useRef,useMemo,createContext,useContext}=React;
 const D=window.OLRYT, IMG=f=>"images/"+f, inr=n=>D.currency+n;
 const Ctx=createContext();
 const Rv=({children,className=""})=>{const r=useRef();useEffect(()=>{const o=new IntersectionObserver(e=>e[0].isIntersecting&&(r.current.classList.add("in"),o.disconnect()),{threshold:.1});o.observe(r.current);return()=>o.disconnect()},[]);return <div ref={r} className={"rv "+className}>{children}</div>};
-const Btn=({children,variant="orange",className="",...p})=><button {...p} className={"btn rounded-full px-6 py-3.5 font-bold min-h-[48px] "+({orange:"bg-brand-orange text-white hover:bg-[#d95c00]",dark:"bg-brand-brown text-brand-cream",ghost:"border-2 border-brand-ink/20 hover:border-brand-ink",pink:"bg-[#FF8A5B] text-brand-ink"}[variant])+" "+className}>{children}</button>;
-const Logo=()=><a href="#home" className="h text-3xl text-brand-orange hover:tracking-wide transition-all" aria-label="OLRYT home">OLRYT</a>;
+const Btn=({children,variant="orange",className="",...p})=><button {...p} className={"btn rounded-full px-5 py-3 text-sm font-bold min-h-[44px] "+({orange:"bg-brand-orange text-white hover:bg-[#d95c00]",dark:"bg-brand-brown text-brand-cream",ghost:"border-2 border-brand-ink/20 hover:border-brand-ink",pink:"bg-[#FF8A5B] text-brand-ink"}[variant])+" "+className}>{children}</button>;
+const Logo=()=><a href="#home" className="h uppercase text-2xl text-brand-orange" aria-label="OLRYT home">OLRYT</a>;
 const Ico=({d,s=22})=><svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d}/></svg>;
 const CART="M6 6h15l-1.5 9h-12zM6 6 5 3H2M9 20a1 1 0 1 0 0 .01M18 20a1 1 0 1 0 0 .01";
 
@@ -40,57 +40,58 @@ function Header(){const {count,setCartOpen,bump}=useContext(Ctx);const [sc,setSc
 useEffect(()=>{const f=()=>setSc(scrollY>10);f();addEventListener("scroll",f);return()=>removeEventListener("scroll",f)},[]);
 const links=[["Home","#home"],["Menu","#menu"],["Our Story","#story"],["Locations","#locations"],["Journal","#journal"]];
 return <header className={"sticky top-0 z-40 transition "+(sc?"bg-brand-cream/85 backdrop-blur-md border-b border-brand-beige":"bg-brand-cream")}>
-<div className="max-w-[1400px] mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between"><Logo/>
-<nav aria-label="Main" className="hidden md:flex gap-9 font-semibold">{links.map(([l,h])=><a key={l} href={h} className="hover:text-brand-orange">{l}</a>)}</nav>
+<div className="max-w-[1400px] mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center justify-between"><Logo/>
+<nav aria-label="Main" className="hidden md:flex gap-8 text-sm font-semibold">{links.map(([l,h])=><a key={l} href={h} className="hover:text-brand-orange">{l}</a>)}</nav>
 <div className="flex items-center gap-2"><Btn className="hidden md:block !py-2.5" onClick={()=>setCartOpen(true)}>Order now</Btn>
 <button onClick={()=>setCartOpen(true)} aria-label={"Open cart, "+count+" items"} className="relative w-12 h-12 grid place-items-center rounded-full hover:bg-brand-beige"><Ico d={CART}/>{count>0&&<span key={bump} className="pop absolute top-1 right-1 bg-brand-orange text-white text-xs font-bold rounded-full min-w-5 h-5 grid place-items-center px-1">{count}</span>}</button>
 <button className="md:hidden w-12 h-12 grid place-items-center" aria-expanded={m} aria-label="Menu" onClick={()=>setM(!m)}><Ico d={m?"M6 6l12 12M18 6 6 18":"M4 7h16M4 12h16M4 17h16"}/></button></div></div>
-{m&&<nav className="md:hidden px-5 pb-5 grid gap-1 bg-brand-cream">{links.map(([l,h])=><a key={l} href={h} onClick={()=>setM(false)} className="py-3 text-xl font-bold border-b border-brand-beige">{l}</a>)}</nav>}</header>}
+{m&&<nav className="md:hidden px-5 pb-5 grid gap-1 bg-brand-cream">{links.map(([l,h])=><a key={l} href={h} onClick={()=>setM(false)} className="py-3 text-base font-bold border-b border-brand-beige">{l}</a>)}</nav>}</header>}
 
-function MobileNav(){const {setCartOpen}=useContext(Ctx);const L=({h,l})=><a href={h} className="flex-1 grid place-items-center py-3 text-xs font-bold">{l}</a>;
-return <nav aria-label="Quick" className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-brand-cream border-t border-brand-beige flex items-center pb-[env(safe-area-inset-bottom)]"><L h="#home" l="HOME"/><L h="#menu" l="MENU"/>
-<button onClick={()=>setCartOpen(true)} className="-mt-6 bg-brand-orange text-white font-extrabold rounded-full w-20 h-20 shadow-lg text-sm">ORDER</button><L h="#locations" l="LOCATIONS"/><L h="#story" l="STORY"/></nav>}
+function MobileNav(){const {setCartOpen,count}=useContext(Ctx);const A=({h,l})=><a href={h} className="w-14 text-center text-[11px] font-semibold py-2">{l}</a>;
+return <nav aria-label="Quick" className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-brand-paper/95 backdrop-blur border-t border-brand-beige px-4 pt-2 pb-[max(8px,env(safe-area-inset-bottom))] flex items-center gap-2"><button onClick={()=>setCartOpen(true)} className="btn flex-1 bg-brand-orange text-white font-bold rounded-full h-12 text-sm">Order now{count>0?" · "+count+(count>1?" items":" item"):""}</button><A h="#home" l="Home"/><A h="#menu" l="Menu"/><A h="#locations" l="Visit"/></nav>}
 
 const SLIDES=[["Bowls","bowl.jpg","coconut-fruit-bowl"],["Coffee","padel-drinks.jpg","vietnamese-iced-coffee"],["Sandwiches","sandwiches.jpg","signature-sandwich"],["Sweet treats","parfaits.jpg","berry-yogurt-cup"]];
-function Hero(){const [i,setI]=useState(0);useEffect(()=>{const t=setInterval(()=>setI(x=>(x+1)%SLIDES.length),5000);return()=>clearInterval(t)},[]);const {setCartOpen}=useContext(Ctx);
-return <section id="home" className="max-w-[1400px] mx-auto px-5 md:px-8 pt-6 md:pt-10 grid lg:grid-cols-[1fr_1.15fr] gap-8 items-center">
-<div><p className="font-bold text-brand-orange mb-4">Just eat right.</p><h1 className="h text-6xl md:text-8xl">Good food.<br/>No boring bits.</h1>
-<p className="text-lg md:text-xl mt-6 max-w-md text-brand-ink/75">Fresh, flavour-packed vegetarian food made for your everyday cravings.</p>
-<div className="flex flex-wrap gap-3 mt-8"><Btn onClick={()=>setCartOpen(true)}>Order now →</Btn><a href="#menu"><Btn variant="ghost">Explore menu →</Btn></a></div></div>
-<div className="relative rounded-[32px] overflow-hidden aspect-[4/5] md:aspect-[5/4] bg-brand-beige" role="region" aria-roledescription="carousel" aria-label="Featured food">
-{SLIDES.map(([t,f],k)=><img key={t} src={IMG(f)} alt={t+" at OLRYT"} className={"absolute inset-0 w-full h-full object-cover transition-opacity duration-700 "+(k===i?"opacity-100":"opacity-0")}/>)}
-<div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-between"><span className="h text-3xl text-white">{SLIDES[i][0]}</span>
-<div className="flex gap-2">{SLIDES.map(([t],k)=><button key={t} onClick={()=>setI(k)} aria-label={"Show "+t} className={"h-2.5 rounded-full transition-all "+(k===i?"w-8 bg-brand-orange":"w-2.5 bg-white/70")}/>)}</div></div></div></section>}
+const SUB=["Fresh & filling","Cold, bold & creamy","Toasty & stacked","Little sweet moments"];
+function Hero(){const [i,setI]=useState(0);useEffect(()=>{const t=setInterval(()=>setI(x=>(x+1)%SLIDES.length),5000);return()=>clearInterval(t)},[]);const {q,setQ}=useContext(Ctx);
+return <section id="home" className="max-w-[1400px] mx-auto px-4 md:px-8 pt-4 md:pt-6">
+<h1 className="h text-xl md:text-3xl">Good food. No boring bits.</h1><p className="text-sm text-brand-ink/65 mt-1">Fresh, flavour-packed vegetarian food. Just eat right.</p>
+<input aria-label="Search the full menu" value={q} onChange={e=>{if(!q)document.getElementById("menu").scrollIntoView();setQ(e.target.value)}} placeholder="Search the full menu…" className="mt-4 w-full border border-brand-beige rounded-full px-5 py-3 bg-white text-sm shadow-sm"/>
+<div className="relative mt-4 rounded-[24px] overflow-hidden aspect-[16/10] md:aspect-[21/8] bg-brand-beige" role="region" aria-roledescription="carousel" aria-label="Featured food">
+{SLIDES.map(([t,f],k)=><img key={t} src={IMG(f)} alt={t+" at OLRYT"} className={"absolute inset-0 w-full h-full object-cover object-[50%_60%] transition-opacity duration-700 "+(k===i?"opacity-100":"opacity-0")}/>)}
+<div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"/>
+<div className="absolute inset-x-0 bottom-0 p-4 md:p-6 flex items-end justify-between"><div className="text-white"><p className="h text-xl md:text-2xl">{SLIDES[i][0]}</p><p className="text-xs md:text-sm opacity-90 mt-0.5">{SUB[i]}</p></div>
+<a href="#menu" className="btn rounded-full bg-brand-orange text-white text-sm font-bold px-4 py-2.5">See all →</a></div>
+<div className="absolute top-3 right-3 flex gap-1.5">{SLIDES.map(([t],k)=><button key={t} onClick={()=>setI(k)} aria-label={"Show "+t} className={"h-1.5 rounded-full transition-all "+(k===i?"w-5 bg-white":"w-1.5 bg-white/60")}/>)}</div></div></section>}
 
 const CATS=[["Bowls","bowl.jpg"],["Sandwiches","sandwiches.jpg"],["Coffee","padel-drinks.jpg"],["Matcha","spring-drinks.jpg"],["Smoothies","bowl.jpg"],["Sides","fries.jpg"],["Desserts","parfaits.jpg"],["Drinks","padel-drinks.jpg"]];
-function CategoryScroller({onPick}){return <section className="max-w-[1400px] mx-auto px-5 md:px-8 pt-16"><h2 className="h text-3xl md:text-5xl mb-6">What are you craving?</h2>
-<div className="flex gap-5 overflow-x-auto no-sb pb-2 md:justify-between">{CATS.map(([n,f])=><a key={n} href="#menu" onClick={()=>onPick(n==="Drinks"?"Coffee":n)} className="group shrink-0 text-center active:scale-95 transition"><div className="zoom w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-brand-beige group-hover:border-brand-orange transition"><img src={IMG(f)} alt="" className="w-full h-full object-cover"/></div><span className="block mt-3 font-bold">{n}</span></a>)}</div></section>}
+function CategoryScroller({onPick}){return <section className="max-w-[1400px] mx-auto px-4 md:px-8 pt-10"><h2 className="h text-xl md:text-2xl mb-6">What are you craving?</h2>
+<div className="flex gap-5 overflow-x-auto no-sb pb-2 md:justify-between">{CATS.map(([n,f])=><a key={n} href="#menu" onClick={()=>onPick(n==="Drinks"?"Coffee":n)} className="group shrink-0 text-center active:scale-95 transition"><div className="zoom w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-brand-beige group-hover:border-brand-orange transition"><img src={IMG(f)} alt="" className="w-full h-full object-cover"/></div><span className="block mt-2 text-xs font-semibold">{n}</span></a>)}</div></section>}
 
 function ProductCard({it,onOpen}){const {add}=useContext(Ctx);
-return <article className="lift group bg-brand-cream border border-brand-beige rounded-[28px] p-3 flex flex-col">
-<button onClick={()=>onOpen(it)} className="zoom block rounded-[20px] overflow-hidden aspect-square relative text-left" aria-label={"View "+it.name}><img src={IMG(it.img)} alt={it.name} loading="lazy" className="w-full h-full object-cover"/>{it.badge&&<span className="absolute top-3 left-3 bg-brand-cream text-xs font-bold rounded-full px-3 py-1">{it.badge}</span>}</button>
-<div className="px-2 pt-4 pb-2 flex-1 flex flex-col"><h3 className="font-extrabold text-lg leading-tight">{it.name}</h3><p className="text-sm text-brand-ink/70 mt-1 flex-1">{it.desc}</p>
-<div className="flex items-center justify-between mt-4"><span className="font-extrabold text-lg">{inr(it.price)}</span><button onClick={()=>add({id:it.id,name:it.name,price:it.price,img:it.img})} aria-label={"Add "+it.name+" to cart"} className="btn w-11 h-11 rounded-full bg-brand-brown text-white text-2xl grid place-items-center">+</button></div></div></article>}
+return <article className="lift group bg-brand-cream border border-brand-beige rounded-[20px] p-2.5 flex flex-col">
+<button onClick={()=>onOpen(it)} className="zoom block rounded-[14px] overflow-hidden aspect-square relative text-left" aria-label={"View "+it.name}><img src={IMG(it.img)} alt={it.name} loading="lazy" className="w-full h-full object-cover"/>{it.badge&&<span className="absolute top-3 left-3 bg-brand-cream text-[10px] font-bold rounded-full px-2 py-0.5">{it.badge}</span>}</button>
+<div className="px-2 pt-4 pb-2 flex-1 flex flex-col"><h3 className="font-bold text-sm leading-tight">{it.name}</h3><p className="text-xs text-brand-ink/60 mt-1 flex-1 line-clamp-2">{it.desc}</p>
+<div className="flex items-center justify-between mt-4"><span className="font-bold text-sm">{inr(it.price)}</span><button onClick={()=>add({id:it.id,name:it.name,price:it.price,img:it.img})} aria-label={"Add "+it.name+" to cart"} className="btn w-10 h-10 rounded-full bg-brand-brown text-white text-lg grid place-items-center">+</button></div></div></article>}
 
-function ProductGrid({items,onOpen}){return <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">{items.map(it=><ProductCard key={it.id} it={it} onOpen={onOpen}/>)}</div>}
+function ProductGrid({items,onOpen}){return <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">{items.map(it=><ProductCard key={it.id} it={it} onOpen={onOpen}/>)}</div>}
 
-function TopPicks({onOpen}){return <section className="max-w-[1400px] mx-auto px-5 md:px-8 pt-20"><h2 className="h text-5xl md:text-7xl">Top picks</h2><p className="text-lg text-brand-ink/70 mt-3 mb-8">The ones everyone keeps coming back for.</p><ProductGrid items={D.items.filter(i=>i.top)} onOpen={onOpen}/></section>}
+function TopPicks({onOpen}){return <section className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12"><h2 className="h text-xl md:text-2xl">Top picks</h2><p className="text-sm text-brand-ink/70 mt-3 mb-5">The ones everyone keeps coming back for.</p><div className="flex gap-3 overflow-x-auto no-sb pb-2">{D.items.filter(i=>i.top).map(it=><div key={it.id} className="w-40 md:w-52 shrink-0"><ProductCard it={it} onOpen={onOpen}/></div>)}</div></section>}
 
-function MenuSection({cat,setCat,onOpen}){const tabs=["All",...D.categories];const items=cat==="All"?D.items:D.items.filter(i=>i.cat===cat);
-return <section id="menu" className="max-w-[1400px] mx-auto px-5 md:px-8 pt-24 scroll-mt-20"><h2 className="h text-5xl md:text-7xl">Build your meal.</h2><p className="text-lg text-brand-ink/70 mt-3">Pick your mood. Pick your flavour. Just eat right.</p>
-<div role="tablist" className="flex gap-2 overflow-x-auto no-sb py-6">{tabs.map(t=><button key={t} role="tab" aria-selected={cat===t} onClick={()=>setCat(t)} className={"shrink-0 rounded-full px-5 py-2.5 font-bold min-h-[44px] transition "+(cat===t?"bg-brand-orange text-white":"bg-brand-cream border border-brand-beige hover:border-brand-orange")}>{t}</button>)}</div>
+function MenuSection({cat,setCat,onOpen}){const tabs=["All",...D.categories];const {q,setQ}=useContext(Ctx);const items=(cat==="All"?D.items:D.items.filter(i=>i.cat===cat)).filter(i=>!q||(i.name+i.desc).toLowerCase().includes(q.toLowerCase()));
+return <section id="menu" className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 scroll-mt-20"><h2 className="h text-xl md:text-2xl">Build your meal.</h2><p className="text-sm text-brand-ink/70 mt-3">Pick your mood. Pick your flavour. Just eat right.</p>
+<input aria-label="Search the menu" value={q} onChange={e=>setQ(e.target.value)} placeholder="Search the full menu…" className="mt-4 w-full md:max-w-sm border border-brand-beige rounded-full px-5 py-3 bg-white text-sm"/><div role="tablist" className="flex gap-2 overflow-x-auto no-sb py-6">{tabs.map(t=><button key={t} role="tab" aria-selected={cat===t} onClick={()=>setCat(t)} className={"shrink-0 rounded-full px-5 py-2.5 font-bold min-h-[44px] transition "+(cat===t?"bg-brand-orange text-white":"bg-brand-cream border border-brand-beige hover:border-brand-orange")}>{t}</button>)}</div>
 {items.length?<ProductGrid items={items} onOpen={onOpen}/>:<p className="py-10">Nothing here yet. Try another tab.</p>}</section>}
 
 function ProductModal({it,onClose}){const {add}=useContext(Ctx);const [q,setQ]=useState(1);const [note,setNote]=useState("");
 useEffect(()=>{const k=e=>e.key==="Escape"&&onClose();addEventListener("keydown",k);document.body.style.overflow="hidden";return()=>{removeEventListener("keydown",k);document.body.style.overflow=""}},[]);
-return <div className="fixed inset-0 z-50 bg-black/50 flex md:items-center md:justify-center" onClick={onClose}><div role="dialog" aria-modal="true" aria-label={it.name} onClick={e=>e.stopPropagation()} className="slide-u bg-brand-paper w-full md:max-w-3xl md:rounded-[32px] overflow-y-auto md:grid md:grid-cols-2 max-h-screen">
+return <div className="fixed inset-0 z-50 bg-black/50 flex md:items-center md:justify-center" onClick={onClose}><div role="dialog" aria-modal="true" aria-label={it.name} onClick={e=>e.stopPropagation()} className="slide-u bg-brand-paper w-full md:max-w-3xl md:rounded-[24px] overflow-y-auto md:grid md:grid-cols-2 max-h-screen">
 <img src={IMG(it.img)} alt={it.name} className="w-full h-72 md:h-full object-cover"/>
 <div className="p-6 md:p-8 flex flex-col"><button onClick={onClose} className="self-end w-11 h-11 rounded-full bg-brand-beige" aria-label="Close">✕</button>
-<h3 className="h text-3xl">{it.name}</h3><p className="mt-3 text-brand-ink/75">{it.desc}</p>
+<h3 className="h text-xl">{it.name}</h3><p className="mt-3 text-brand-ink/75">{it.desc}</p>
 <h4 className="font-extrabold mt-5">Ingredients</h4><p className="text-sm">{it.ingredients.join(", ")}</p>
 <h4 className="font-extrabold mt-4">Dietary</h4><p className="text-sm">100% vegetarian. Allergen & nutrition info: to be confirmed by OLRYT.</p>
 <label className="font-extrabold mt-4" htmlFor="nt">Customise</label><input id="nt" value={note} onChange={e=>setNote(e.target.value)} placeholder="e.g. less spicy, extra sauce" className="mt-1 border border-brand-beige rounded-xl px-4 py-3 bg-white"/>
-<div className="mt-auto pt-6 flex items-center gap-4"><div className="flex items-center border border-brand-beige rounded-full"><button className="w-11 h-11 text-xl" aria-label="Less" onClick={()=>setQ(Math.max(1,q-1))}>−</button><span className="w-6 text-center font-bold">{q}</span><button className="w-11 h-11 text-xl" aria-label="More" onClick={()=>setQ(q+1)}>+</button></div>
+<div className="mt-auto pt-6 flex items-center gap-4"><div className="flex items-center border border-brand-beige rounded-full"><button className="w-11 h-11 text-base" aria-label="Less" onClick={()=>setQ(Math.max(1,q-1))}>−</button><span className="w-6 text-center font-bold">{q}</span><button className="w-11 h-11 text-base" aria-label="More" onClick={()=>setQ(q+1)}>+</button></div>
 <Btn className="flex-1" onClick={()=>{add({id:it.id,name:it.name,price:it.price,img:it.img,note},q);onClose()}}>Add to cart · {inr(it.price*q)}</Btn></div></div></div></div>}
 
 function BuildYourOwn(){const {add}=useContext(Ctx);const B=D.byo;
@@ -99,49 +100,49 @@ const [sel,setSel]=useState({base:["Brown rice"],protein:[],toppings:[],sauce:[]
 const toggle=(k,n,multi)=>setSel(s=>({...s,[k]:multi?(s[k].includes(n)?s[k].filter(x=>x!==n):[...s[k],n]):[n]}));
 const price=B.basePrice+steps.reduce((a,[k])=>a+B[k].filter(o=>sel[k].includes(o.n)).reduce((x,o)=>x+o.p,0),0);
 const label=Object.values(sel).flat().join(", ");
-return <section className="max-w-[1400px] mx-auto px-5 md:px-8 pt-24"><div className="bg-brand-cream border border-brand-beige rounded-[32px] p-6 md:p-12">
-<h2 className="h text-5xl md:text-7xl">Build it your way.</h2><p className="text-lg text-brand-ink/70 mt-3">Your bowl. Your rules.</p>
-{steps.map(([k,t,multi])=><fieldset key={k} className="mt-8"><legend className="font-extrabold text-xl mb-3">{t}{multi&&<span className="font-medium text-sm text-brand-ink/60"> (pick any)</span>}</legend>
+return <section className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12"><div className="bg-brand-cream border border-brand-beige rounded-[24px] p-5 md:p-8">
+<h2 className="h text-xl md:text-2xl">Build it your way.</h2><p className="text-sm text-brand-ink/70 mt-3">Your bowl. Your rules.</p>
+{steps.map(([k,t,multi])=><fieldset key={k} className="mt-5"><legend className="font-extrabold text-base mb-3">{t}{multi&&<span className="font-medium text-sm text-brand-ink/60"> (pick any)</span>}</legend>
 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">{B[k].map(o=>{const on=sel[k].includes(o.n);return <button key={o.n} aria-pressed={on} onClick={()=>toggle(k,o.n,multi)} className={"relative text-left rounded-2xl p-4 min-h-[72px] bg-white border-2 transition "+(on?"border-brand-orange shadow-[0_0_0_4px_rgba(245,106,0,.15)]":"border-brand-beige hover:border-brand-orange/50")}>
 <span className="font-bold block">{o.n}</span><span className="text-sm text-brand-ink/60">{o.p?"+"+inr(o.p):"Included"}</span>{on&&<span className="absolute top-2 right-2 w-6 h-6 rounded-full bg-brand-orange text-white text-sm grid place-items-center">✓</span>}</button>})}</div></fieldset>)}
-<div className="mt-10 pt-6 border-t border-brand-beige flex flex-wrap items-center justify-between gap-4"><div><p className="h text-2xl">Your bowl</p><p className="text-sm text-brand-ink/70 max-w-lg">{label||"Pick a base to start"}</p></div>
-<div className="flex items-center gap-5"><span className="h text-4xl">{inr(price)}</span><Btn disabled={!sel.protein.length} onClick={()=>add({id:"custom",name:label,price,img:"bowl.jpg",key:"custom-"+label})}>Add to cart</Btn></div></div></div></section>}
+<div className="mt-10 pt-6 border-t border-brand-beige flex flex-wrap items-center justify-between gap-4"><div><p className="h text-lg">Your bowl</p><p className="text-sm text-brand-ink/70 max-w-lg">{label||"Pick a base to start"}</p></div>
+<div className="flex items-center gap-5"><span className="h text-2xl">{inr(price)}</span><Btn disabled={!sel.protein.length} onClick={()=>add({id:"custom",name:label,price,img:"bowl.jpg",key:"custom-"+label})}>Add to cart</Btn></div></div></div></section>}
 
-const PromoCard=({dark,label,title,text,cta,onClick})=><div className={"relative overflow-hidden rounded-[32px] p-8 md:p-12 min-h-[340px] flex flex-col justify-end "+(dark?"bg-brand-brown text-brand-cream":"bg-brand-orange text-white")}>
+const PromoCard=({dark,label,title,text,cta,onClick})=><div className={"relative overflow-hidden rounded-[24px] p-6 md:p-8 min-h-[190px] flex flex-col justify-end "+(dark?"bg-brand-brown text-brand-cream":"bg-brand-orange text-white")}>
 <div className={"absolute -top-16 -right-16 w-64 h-64 rounded-full "+(dark?"bg-brand-orange/25":"bg-white/15")} aria-hidden="true"/>
-<p className="font-bold mb-3 relative">{label}</p><h3 className="h text-5xl md:text-6xl relative">{title}</h3>{text&&<p className="mt-4 text-lg relative">{text}</p>}
+<p className="font-bold mb-3 relative">{label}</p><h3 className="h text-xl md:text-3xl relative">{title}</h3>{text&&<p className="mt-4 text-sm relative">{text}</p>}
 <button onClick={onClick} className="btn relative mt-6 self-start rounded-full px-6 py-3.5 font-bold bg-brand-cream text-brand-ink">{cta}</button></div>;
-function Promos(){const {setCartOpen}=useContext(Ctx);return <section className="max-w-[1400px] mx-auto px-5 md:px-8 pt-24 grid md:grid-cols-2 gap-5">
+function Promos(){const {setCartOpen}=useContext(Ctx);return <section className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 grid md:grid-cols-2 gap-5">
 <PromoCard dark label="OLRYT favourites" title={<>Good food,<br/>on repeat.</>} text="Your regulars, sorted." cta="Explore favourites >" onClick={()=>document.getElementById("menu").scrollIntoView()}/>
 <PromoCard label="Just eat right." title={<>Cravings?<br/>Sorted.</>} cta="Order now →" onClick={()=>setCartOpen(true)}/></section>}
 
-const Story=()=><section id="story" className="max-w-[1400px] mx-auto px-5 md:px-8 pt-24 scroll-mt-20 grid lg:grid-cols-[1.1fr_1fr] gap-10 items-center">
-<div className="zoom rounded-[32px] overflow-hidden aspect-[4/5] lg:aspect-square"><img src={IMG("event.jpg")} alt="OLRYT breakfast spread with fresh bowls, toasts and juices" className="w-full h-full object-cover"/></div>
-<div><h2 className="h text-5xl md:text-7xl">More than just a meal.</h2><p className="text-xl font-semibold mt-6">OLRYT is food made for people who want to eat well without settling for boring.</p>
-<p className="mt-4 text-brand-ink/75 text-lg">Fresh ingredients. Bold flavours. Vegetarian food. Modern café culture. Food that fits real life.</p><a href="#locations"><Btn variant="dark" className="mt-8">Our story ></Btn></a></div></section>;
+const Story=()=><section id="story" className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 scroll-mt-20 grid lg:grid-cols-[1.1fr_1fr] gap-10 items-center">
+<div className="zoom rounded-[24px] overflow-hidden aspect-[4/5] lg:aspect-square"><img src={IMG("event.jpg")} alt="OLRYT breakfast spread with fresh bowls, toasts and juices" className="w-full h-full object-cover"/></div>
+<div><h2 className="h text-xl md:text-2xl">More than just a meal.</h2><p className="text-base font-semibold mt-6">OLRYT is food made for people who want to eat well without settling for boring.</p>
+<p className="mt-4 text-brand-ink/75 text-sm">Fresh ingredients. Bold flavours. Vegetarian food. Modern café culture. Food that fits real life.</p><a href="#locations"><Btn variant="dark" className="mt-5">Our story </Btn></a></div></section>;
 
-const Insta=()=><section className="max-w-[1400px] mx-auto px-5 md:px-8 pt-24"><h2 className="h text-5xl md:text-7xl">Follow the cravings.</h2><p className="text-lg text-brand-ink/70 mt-3 mb-8">More food. More chaos. More OLRYT.</p>
+const Insta=()=><section className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12"><h2 className="h text-xl md:text-2xl">Follow the cravings.</h2><p className="text-sm text-brand-ink/70 mt-3 mb-5">More food. More chaos. More OLRYT.</p>
 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">{D.instagramGrid.map(f=><a key={f} href={D.instagram} target="_blank" rel="noopener" aria-label="Open OLRYT on Instagram" className="zoom group relative rounded-[20px] overflow-hidden aspect-square"><img src={IMG(f+".jpg")} alt="OLRYT Instagram post" loading="lazy" className="w-full h-full object-cover"/><span className="absolute inset-0 bg-brand-ink/50 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition grid place-items-center text-white"><Ico s={36} d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM17.5 6.5h.01"/></span></a>)}</div>
-<a href={D.instagram} target="_blank" rel="noopener"><Btn className="mt-8">Follow @eat.olryt ></Btn></a></section>;
+<a href={D.instagram} target="_blank" rel="noopener"><Btn className="mt-5">Follow @eat.olryt </Btn></a></section>;
 
-const LocationCard=({l})=>{const {setCartOpen,setLoc}=useContext(Ctx);return <article className="rounded-[32px] border border-brand-beige bg-brand-cream overflow-hidden lift">
+const LocationCard=({l})=>{const {setCartOpen,setLoc}=useContext(Ctx);return <article className="rounded-[24px] border border-brand-beige bg-brand-cream overflow-hidden lift">
 <div className="h-40 bg-brand-beige relative grid place-items-center" aria-hidden="true" style={{backgroundImage:"linear-gradient(#e3d6c4 1px,transparent 1px),linear-gradient(90deg,#e3d6c4 1px,transparent 1px)",backgroundSize:"32px 32px"}}><span className="w-8 h-8 rounded-full bg-brand-orange ring-8 ring-brand-orange/25"/></div>
-<div className="p-7"><h3 className="h text-3xl">{l.name}</h3><p className="mt-3">{l.address}</p><p className="font-bold mt-1">{l.hours}</p>
+<div className="p-7"><h3 className="h text-xl">{l.name}</h3><p className="mt-3">{l.address}</p><p className="font-bold mt-1">{l.hours}</p>
 <div className="flex flex-wrap gap-3 mt-6"><a href={l.maps} target="_blank" rel="noopener"><Btn variant="ghost">Get directions</Btn></a><Btn onClick={()=>{setLoc(l.name);setCartOpen(true)}}>Order now →</Btn></div></div></article>};
-const Locations=()=><section id="locations" className="max-w-[1400px] mx-auto px-5 md:px-8 pt-24 scroll-mt-20"><h2 className="h text-5xl md:text-7xl mb-8">Come say hi.</h2><div className="grid md:grid-cols-2 gap-5">{D.locations.map(l=><LocationCard key={l.id} l={l}/>)}</div></section>;
+const Locations=()=><section id="locations" className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 scroll-mt-20"><h2 className="h text-xl md:text-2xl mb-5">Come say hi.</h2><div className="grid md:grid-cols-2 gap-5">{D.locations.map(l=><LocationCard key={l.id} l={l}/>)}</div></section>;
 
-const JournalCard=({j})=><article className="zoom lift group"><div className="rounded-[24px] overflow-hidden aspect-[4/3]"><img src={IMG(j.img)} alt="" loading="lazy" className="w-full h-full object-cover"/></div><p className="text-brand-orange font-bold mt-4">{j.cat}</p><h3 className="font-extrabold text-xl mt-1">{j.title}</h3><p className="text-brand-ink/70 mt-1">{j.desc}</p><a href="#journal" className="font-bold underline underline-offset-4 mt-3 inline-block">Read more →</a></article>;
-const Journal=()=><section id="journal" className="max-w-[1400px] mx-auto px-5 md:px-8 pt-24 scroll-mt-20"><h2 className="h text-5xl md:text-7xl mb-8">The OLRYT journal</h2><div className="grid md:grid-cols-3 gap-6">{D.journal.map(j=><JournalCard key={j.title} j={j}/>)}</div></section>;
+const JournalCard=({j})=><article className="zoom lift group"><div className="rounded-[24px] overflow-hidden aspect-[4/3]"><img src={IMG(j.img)} alt="" loading="lazy" className="w-full h-full object-cover"/></div><p className="text-brand-orange font-bold mt-4">{j.cat}</p><h3 className="font-extrabold text-base mt-1">{j.title}</h3><p className="text-brand-ink/70 mt-1">{j.desc}</p><a href="#journal" className="font-bold underline underline-offset-4 mt-3 inline-block">Read more →</a></article>;
+const Journal=()=><section id="journal" className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 scroll-mt-20"><h2 className="h text-xl md:text-2xl mb-5">The OLRYT journal</h2><div className="grid md:grid-cols-3 gap-6">{D.journal.map(j=><JournalCard key={j.title} j={j}/>)}</div></section>;
 
-const Loyalty=()=><section className="max-w-[1400px] mx-auto px-5 md:px-8 pt-24 grid md:grid-cols-[1.2fr_1fr] gap-5">
-<div className="rounded-[32px] bg-brand-yellow p-8 md:p-12"><h2 className="h text-5xl md:text-6xl">Bring your people.</h2><p className="text-lg mt-4">Good food is better together.</p><Btn variant="dark" className="mt-6">Refer a friend ></Btn></div>
-<div className="rounded-[32px] bg-brand-green text-brand-cream p-8 md:p-12"><h3 className="h text-3xl md:text-4xl">Your OLRYT favourites, all in one place.</h3><Btn className="mt-6">View rewards ></Btn></div></section>;
+const Loyalty=()=><section className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12 grid md:grid-cols-[1.2fr_1fr] gap-5">
+<div className="rounded-[24px] bg-brand-yellow p-6 md:p-8"><h2 className="h text-xl md:text-3xl">Bring your people.</h2><p className="text-sm mt-4">Good food is better together.</p><Btn variant="dark" className="mt-6">Refer a friend </Btn></div>
+<div className="rounded-[24px] bg-brand-green text-brand-cream p-6 md:p-8"><h3 className="h text-xl md:text-2xl">Your OLRYT favourites, all in one place.</h3><Btn className="mt-6">View rewards </Btn></div></section>;
 
-function CTA(){const {setCartOpen}=useContext(Ctx);return <section className="mt-24 bg-brand-brown text-brand-cream relative overflow-hidden"><div className="absolute -bottom-40 -right-32 w-[34rem] h-[34rem] rounded-full bg-brand-orange/90" aria-hidden="true"/>
-<div className="relative max-w-[1400px] mx-auto px-5 md:px-8 py-24 md:py-32"><p className="font-bold text-brand-orange mb-4">Ready when you are.</p><h2 className="h text-6xl md:text-9xl">What are you<br/>craving today?</h2><p className="text-lg mt-6">Build your meal. Pick your favourites. Just eat right.</p><Btn variant="pink" className="mt-8" onClick={()=>setCartOpen(true)}>Order now ></Btn></div></section>}
+function CTA(){const {setCartOpen}=useContext(Ctx);return <section className="mt-12 bg-brand-brown text-brand-cream relative overflow-hidden"><div className="absolute -bottom-40 -right-32 w-[34rem] h-[34rem] rounded-full bg-brand-orange/90" aria-hidden="true"/>
+<div className="relative max-w-[1400px] mx-auto px-4 md:px-8 py-12 md:py-16"><p className="font-bold text-brand-orange mb-4">Ready when you are.</p><h2 className="h no-ul text-2xl md:text-4xl">What are you <br/>craving today?</h2><p className="text-sm mt-6">Build your meal. Pick your favourites. Just eat right.</p><Btn variant="pink" className="mt-5" onClick={()=>setCartOpen(true)}>Order now </Btn></div></section>}
 
-const Footer=()=><footer className="bg-brand-ink text-brand-cream"><div className="max-w-[1400px] mx-auto px-5 md:px-8 py-14 grid md:grid-cols-3 gap-10">
-<div><p className="h text-5xl text-brand-orange">OLRYT</p><p className="font-bold mt-2">Just eat right.</p><p className="mt-4 text-sm opacity-80">100% vegetarian</p></div>
+const Footer=()=><footer className="bg-brand-ink text-brand-cream"><div className="max-w-[1400px] mx-auto px-4 md:px-8 py-14 grid md:grid-cols-3 gap-10">
+<div><p className="h uppercase text-3xl text-brand-orange">OLRYT</p><p className="font-bold mt-2">Just eat right.</p><p className="mt-4 text-sm opacity-80">100% vegetarian</p></div>
 <nav aria-label="Footer" className="grid gap-2 font-semibold">{[["Menu","#menu"],["Our story","#story"],["Locations","#locations"],["Journal","#journal"],["Contact","#locations"]].map(([l,h])=><a key={l} href={h} className="hover:text-brand-orange">{l}</a>)}</nav>
 <div className="grid gap-2 font-semibold content-start"><a href={D.instagram} className="hover:text-brand-orange">Instagram</a><a href={D.whatsapp} className="hover:text-brand-orange">WhatsApp</a><a href={D.locations[0].maps} className="hover:text-brand-orange">Google Maps</a>{D.locations.map(l=><p key={l.id} className="text-sm opacity-80 font-normal">{l.name}: {l.hours}</p>)}</div></div>
 <div className="border-t border-white/10 py-5 px-5 text-sm opacity-70 flex flex-wrap gap-4 justify-between max-w-[1400px] mx-auto"><span>© OLRYT</span><span><a href="#">Privacy Policy</a> · <a href="#">Terms & Conditions</a></span></div></footer>;
@@ -154,8 +155,8 @@ const place=async()=>{setErr("");if(!f.name||f.phone.replace(/\D/g,"").length<8)
  try{const r=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({customer:f,mode,location:loc,lines:cart.map(l=>({id:l.id,name:l.name,price:l.price,qty:l.qty}))})});const j=await r.json();if(!r.ok)return setErr(j.error||"Something went wrong.");setSt({id:j.id})}
  catch{setSt({id:"DEMO",demo:true})} clear()};
 return <div className="fixed inset-0 z-50 bg-black/50" onClick={()=>setCartOpen(false)}><aside role="dialog" aria-modal="true" aria-label="Your cart" onClick={e=>e.stopPropagation()} className="slide-r absolute right-0 top-0 h-full w-full md:max-w-md bg-brand-paper flex flex-col">
-<div className="p-5 flex items-center justify-between border-b border-brand-beige"><h2 className="h text-3xl">Your order</h2><button className="w-11 h-11 rounded-full bg-brand-beige" aria-label="Close cart" onClick={()=>setCartOpen(false)}>✕</button></div>
-{st?<div className="p-8 text-center my-auto"><p className="h text-4xl text-brand-orange">Order received.</p><p className="mt-4">Your order number is <b>{st.id}</b>. {st.demo?"(Demo mode: the server isn't connected, so nothing was sent.)":"We'll call you to confirm. Pay at the counter or on delivery."}</p><Btn className="mt-6" onClick={()=>{setSt(null);setCartOpen(false)}}>Back to menu</Btn></div>:
+<div className="p-5 flex items-center justify-between border-b border-brand-beige"><h2 className="h text-xl">Your order</h2><button className="w-11 h-11 rounded-full bg-brand-beige" aria-label="Close cart" onClick={()=>setCartOpen(false)}>✕</button></div>
+{st?<div className="p-8 text-center my-auto"><p className="h text-2xl text-brand-orange">Order received.</p><p className="mt-4">Your order number is <b>{st.id}</b>. {st.demo?"(Demo mode: the server isn't connected, so nothing was sent.)":"We'll call you to confirm. Pay at the counter or on delivery."}</p><Btn className="mt-6" onClick={()=>{setSt(null);setCartOpen(false)}}>Back to menu</Btn></div>:
 <><div className="flex-1 overflow-y-auto p-5 grid gap-4 content-start">{cart.length===0&&<p className="text-brand-ink/70">Your cart is empty. Pick something tasty from the menu.</p>}
 {cart.map(l=><div key={l.key} className="flex gap-3 items-center"><img src={IMG(l.img)} alt="" className="w-16 h-16 rounded-xl object-cover"/><div className="flex-1 min-w-0"><p className="font-bold leading-tight truncate">{l.id==="custom"?"Custom bowl":l.name}</p>{l.note&&<p className="text-xs text-brand-ink/60 truncate">{l.note}</p>}<p className="text-sm">{inr(l.price)}</p></div>
 <div className="flex items-center border border-brand-beige rounded-full"><button className="w-10 h-10" aria-label="Less" onClick={()=>setQty(l.key,l.qty-1)}>−</button><span className="w-5 text-center font-bold">{l.qty}</span><button className="w-10 h-10" aria-label="More" onClick={()=>setQty(l.key,l.qty+1)}>+</button></div></div>)}
@@ -164,14 +165,14 @@ return <div className="fixed inset-0 z-50 bg-black/50" onClick={()=>setCartOpen(
 <input aria-label="Name" placeholder="Your name" value={f.name} onChange={e=>setF({...f,name:e.target.value})} className="border border-brand-beige rounded-xl px-4 py-3 bg-white"/>
 <input aria-label="Phone" inputMode="tel" placeholder="Phone number" value={f.phone} onChange={e=>setF({...f,phone:e.target.value})} className="border border-brand-beige rounded-xl px-4 py-3 bg-white"/>
 {mode==="delivery"&&<input aria-label="Address" placeholder="Delivery address" value={f.address} onChange={e=>setF({...f,address:e.target.value})} className="border border-brand-beige rounded-xl px-4 py-3 bg-white"/>}</div>}</div>
-<div className="p-5 border-t border-brand-beige"><div className="flex justify-between"><span>Subtotal</span><b>{inr(sub)}</b></div>{fee>0&&<div className="flex justify-between"><span>Delivery</span><b>{inr(fee)}</b></div>}<div className="flex justify-between text-xl font-extrabold mt-1"><span>Total</span><span>{inr(sub+fee)}</span></div>
+<div className="p-5 border-t border-brand-beige"><div className="flex justify-between"><span>Subtotal</span><b>{inr(sub)}</b></div>{fee>0&&<div className="flex justify-between"><span>Delivery</span><b>{inr(fee)}</b></div>}<div className="flex justify-between text-base font-extrabold mt-1"><span>Total</span><span>{inr(sub+fee)}</span></div>
 {err&&<p role="alert" className="text-red-700 text-sm mt-2">{err}</p>}<Btn className="w-full mt-4" disabled={!cart.length} onClick={place}>Checkout</Btn><p className="text-xs text-center mt-2 text-brand-ink/60">No payment taken yet. Pay at the counter or on delivery.</p></div></>}</aside></div>}
 
-function App(){const [cart,setCart]=useState(()=>{try{return JSON.parse(localStorage.getItem("olryt-cart"))||[]}catch{return[]}});const [cartOpen,setCartOpen]=useState(false);const [bump,setBump]=useState(0);const [cat,setCat]=useState("All");const [open,setOpen]=useState(null);const [loc,setLoc]=useState(D.locations[0].name);
+function App(){const [cart,setCart]=useState(()=>{try{return JSON.parse(localStorage.getItem("olryt-cart"))||[]}catch{return[]}});const [cartOpen,setCartOpen]=useState(false);const [bump,setBump]=useState(0);const [cat,setCat]=useState("All");const [open,setOpen]=useState(null);const [q,setQ]=useState("");const [loc,setLoc]=useState(D.locations[0].name);
 useEffect(()=>{try{localStorage.setItem("olryt-cart",JSON.stringify(cart))}catch{}},[cart]);
 const add=(it,q=1)=>{const key=it.key||it.id+(it.note||"");setCart(c=>c.find(l=>l.key===key)?c.map(l=>l.key===key?{...l,qty:l.qty+q}:l):[...c,{...it,key,qty:q}]);setBump(b=>b+1)};
 const setQty=(key,q)=>setCart(c=>q<1?c.filter(l=>l.key!==key):c.map(l=>l.key===key?{...l,qty:q}:l));
-const v={cart,add,setQty,clear:()=>setCart([]),count:cart.reduce((a,l)=>a+l.qty,0),cartOpen,setCartOpen,bump,loc,setLoc};
+const v={cart,add,setQty,clear:()=>setCart([]),count:cart.reduce((a,l)=>a+l.qty,0),cartOpen,setCartOpen,bump,loc,setLoc,q,setQ};
 return <Ctx.Provider value={v}><a href="#menu" className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:bg-white focus:p-3">Skip to menu</a><Header/><main>
 <Hero/><Rv><CategoryScroller onPick={setCat}/></Rv><Rv><TopPicks onOpen={setOpen}/></Rv><Rv><MenuSection cat={cat} setCat={setCat} onOpen={setOpen}/></Rv><Rv><BuildYourOwn/></Rv><Rv><Promos/></Rv><Rv><Story/></Rv><Rv><Insta/></Rv><Rv><Locations/></Rv><Rv><Journal/></Rv><Rv><Loyalty/></Rv><CTA/></main><Footer/><MobileNav/>
 {open&&<ProductModal it={open} onClose={()=>setOpen(null)}/>}<CartDrawer/></Ctx.Provider>}
